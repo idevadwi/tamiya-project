@@ -18,5 +18,7 @@ class Moderator extends Model
     protected $fillable = [
         'user_id',
         'tournament_id',
+        'created_by',
+        'updated_by',
     ];
 }

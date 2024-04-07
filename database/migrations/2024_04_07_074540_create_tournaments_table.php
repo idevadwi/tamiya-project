@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('image');
             $table->integer('current_stage');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

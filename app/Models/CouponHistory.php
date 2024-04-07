@@ -22,5 +22,7 @@ class CouponHistory extends Model
         'before_changes',
         'after_changes',
         'type',
+        'created_by',
+        'updated_by',
     ];
 }

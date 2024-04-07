@@ -20,5 +20,7 @@ class Racer extends Model
         'racer_name',
         'image',
         'team_id',
+        'created_by',
+        'updated_by',
     ];
 }

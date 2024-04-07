@@ -21,5 +21,7 @@ class Tournament extends Model
         'description',
         'image',
         'current_stage',
+        'created_by',
+        'updated_by',
     ];
 }

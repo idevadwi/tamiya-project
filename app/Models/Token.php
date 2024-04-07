@@ -18,5 +18,7 @@ class Token extends Model
     protected $fillable = [
         'token_code',
         'status',
+        'created_by',
+        'updated_by',
     ];
 }

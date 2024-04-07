@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('racer_name');
             $table->string('image');
             $table->foreignUuid('team_id')->nullable()->index();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -19,5 +19,7 @@ class Team extends Model
         'team_name',
         'description',
         'image',
+        'created_by',
+        'updated_by',
     ];
 }

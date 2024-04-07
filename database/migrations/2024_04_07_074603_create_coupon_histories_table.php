@@ -19,7 +19,9 @@ return new class extends Migration
             $table->integer('before_changes');
             $table->integer('after_changes');
             $table->string('type'); //credit, usage, return
-            $table->timestamps(); 
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->timestamps();
         });
     }
 

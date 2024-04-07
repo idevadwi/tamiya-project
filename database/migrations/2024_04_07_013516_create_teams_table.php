@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('team_name');
             $table->string('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

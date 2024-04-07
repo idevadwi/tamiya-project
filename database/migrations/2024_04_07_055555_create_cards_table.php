@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('card_code');
             $table->foreignUuid('racer_id')->nullable()->index();
             $table->integer('coupon');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

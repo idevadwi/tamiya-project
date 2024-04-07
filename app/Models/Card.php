@@ -19,5 +19,7 @@ class Card extends Model
         'card_code',
         'racer_id',
         'coupon',
+        'created_by',
+        'updated_by',
     ];
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('roles');
             $table->rememberToken();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
 
