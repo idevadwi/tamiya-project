@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tournaments', function (Blueprint $table) {
+        Schema::create('btos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('tournament_name');
-            $table->string('vendor_name');
-            $table->string('description');
-            $table->string('image');
-            $table->integer('current_stage');
-            $table->integer('track_number');
-            $table->integer('bto_number');
-            $table->string('status');
+            $table->foreignUuid('tournament_id')->index();
+            $table->string('track');
+            $table->integer('timer');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tournaments');
+        Schema::dropIfExists('btos');
     }
 };

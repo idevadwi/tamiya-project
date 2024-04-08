@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Tournament extends Model
+class Bto extends Model
 {
     use HasFactory, HasUuids;
 
@@ -16,14 +16,10 @@ class Tournament extends Model
      * @var array
      */
     protected $fillable = [
-        'tournament_name',
-        'vendor_name',
-        'description',
-        'image',
-        'current_stage',
-        'track_number',
-        'bto_number',
-        'status',
+        'tournament_id',
+        'track',
+        'timer',
+        'team',
         'created_by',
         'updated_by',
     ];
