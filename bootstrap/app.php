@@ -10,8 +10,10 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) {
-        //
+    ->withMiddleware(function () {
+        return [
+            \App\Http\Middleware\CustomCsrfMiddleware::class,
+        ];
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

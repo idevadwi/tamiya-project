@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignUuid('tournament_id')->index();
             $table->string('stage');
             $table->string('track');
-            $table->foreignUuid('lane_1')->index()->nullable();
-            $table->foreignUuid('lane_2')->index()->nullable();
-            $table->foreignUuid('lane_3')->index()->nullable();
+            $table->foreignUuid('lane');
+            $table->foreignUuid('racer_id')->nullable()->index();
+            $table->foreignUuid('team_id')->index()->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

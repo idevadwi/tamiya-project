@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('tournament_name');
-            $table->string('vendor_name');
-            $table->string('description');
-            $table->string('image');
-            $table->integer('current_stage');
+            $table->string('vendor_name')->nullable();
+            $table->string('description')->nullable();
+            $table->string('image')->nullable();
+            $table->integer('current_stage')->nullable();
+            $table->integer('current_session')->nullable();
             $table->integer('track_number');
+            $table->integer('champ_number');
             $table->integer('bto_number');
             $table->string('status');
             $table->string('created_by')->nullable();

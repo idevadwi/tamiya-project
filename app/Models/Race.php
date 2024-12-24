@@ -19,9 +19,9 @@ class Race extends Model
         'tournament_id',
         'stage',
         'track',
-        'lane_1',
-        'lane_2',
-        'lane_3',
+        'lane',
+        'racer_id',
+        'team_id',
         'created_by',
         'updated_by',
     ];

@@ -1,0 +1,331 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tournament API",
+        "description": "API documentation for managing tournaments",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/tournaments": {
+            "get": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Get all tournaments",
+                "operationId": "d6d13007f7657d700fa0fff0acd91dac",
+                "responses": {
+                    "200": {
+                        "description": "A list of tournaments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Tournament"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Create a new tournament",
+                "operationId": "9d68ca3021e6e272b1dbfdc2a103efa1",
+                "parameters": [
+                    {
+                        "name": "X-CSRF-TOKEN",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TournamentRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tournament created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tournament"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tournaments/{id}": {
+            "get": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Get tournament by ID",
+                "operationId": "551f2bae3b61410cea0c01c6502e0143",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tournament ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tournament details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tournament"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tournament not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Update a tournament",
+                "operationId": "78e28d2b2290e269015acce30526bc09",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tournament ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-CSRF-TOKEN",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TournamentRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tournament updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Tournament"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tournament not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Delete a tournament",
+                "operationId": "af66c4c7977e7038140626b9982b9a41",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tournament ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Tournament deleted"
+                    },
+                    "404": {
+                        "description": "Tournament not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TournamentRequest": {
+                "required": [
+                    "tournament_name",
+                    "vendor_name",
+                    "description",
+                    "image",
+                    "current_stage",
+                    "current_session",
+                    "track_number",
+                    "champ_number",
+                    "bto_number",
+                    "status"
+                ],
+                "properties": {
+                    "tournament_name": {
+                        "description": "The name of the tournament",
+                        "type": "string"
+                    },
+                    "vendor_name": {
+                        "description": "The name of the vendor",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the tournament",
+                        "type": "string"
+                    },
+                    "image": {
+                        "description": "Image URL of the tournament",
+                        "type": "string"
+                    },
+                    "current_stage": {
+                        "description": "The current stage of the tournament",
+                        "type": "integer"
+                    },
+                    "current_session": {
+                        "description": "The current session of the tournament",
+                        "type": "integer"
+                    },
+                    "track_number": {
+                        "description": "The track number",
+                        "type": "integer"
+                    },
+                    "champ_number": {
+                        "description": "The champion number",
+                        "type": "integer"
+                    },
+                    "bto_number": {
+                        "description": "The back-to-office number",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "description": "The status of the tournament",
+                        "type": "string"
+                    },
+                    "created_by": {
+                        "description": "ID of the user who created the tournament",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updated_by": {
+                        "description": "ID of the user who last updated the tournament",
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Tournament": {
+                "properties": {
+                    "id": {
+                        "description": "The UUID of the tournament",
+                        "type": "string"
+                    },
+                    "tournament_name": {
+                        "description": "The name of the tournament",
+                        "type": "string"
+                    },
+                    "vendor_name": {
+                        "description": "The name of the vendor",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the tournament",
+                        "type": "string"
+                    },
+                    "image": {
+                        "description": "Image URL of the tournament",
+                        "type": "string"
+                    },
+                    "current_stage": {
+                        "description": "The current stage of the tournament",
+                        "type": "integer"
+                    },
+                    "current_session": {
+                        "description": "The current session of the tournament",
+                        "type": "integer"
+                    },
+                    "track_number": {
+                        "description": "The track number",
+                        "type": "integer"
+                    },
+                    "champ_number": {
+                        "description": "The champion number",
+                        "type": "integer"
+                    },
+                    "bto_number": {
+                        "description": "The back-to-office number",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "description": "The status of the tournament",
+                        "type": "string"
+                    },
+                    "created_by": {
+                        "description": "ID of the user who created the tournament",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updated_by": {
+                        "description": "ID of the user who last updated the tournament",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "Creation timestamp",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tournaments",
+            "description": "Operations about tournaments"
+        }
+    ]
+}

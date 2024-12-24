@@ -49,9 +49,6 @@ class UserController extends Controller
             ->with('message', 'New user created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         //

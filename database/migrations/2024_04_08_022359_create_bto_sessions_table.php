@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('btos', function (Blueprint $table) {
+        Schema::create('bto_sessions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('tournament_id')->index();
             $table->integer('session_number');
