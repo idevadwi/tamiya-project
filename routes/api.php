@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\RacerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TournamentController;
@@ -21,3 +22,7 @@ Route::resource('tournaments', TournamentController::class);
 Route::resource('cards', CardController::class);
 Route::get('cards/code/{card_code}', [CardController::class, 'getByCardCode']);
 Route::get('cards/racer/{racer_id}', [CardController::class, 'getByRacerId']);
+
+//racers
+Route::resource('racers', RacerController::class);
+Route::get('racers/team/{team_id}', [RacerController::class, 'getByTeamId']);

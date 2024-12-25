@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\TournamentService;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
 
 /**
  * @OA\Info(

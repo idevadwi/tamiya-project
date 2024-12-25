@@ -128,9 +128,6 @@
                 "responses": {
                     "200": {
                         "description": "Success"
-                    },
-                    "400": {
-                        "description": "Invalid JSON Schema"
                     }
                 }
             },
@@ -201,6 +198,201 @@
                 "responses": {
                     "200": {
                         "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/racers": {
+            "get": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Get all racers",
+                "operationId": "096c080bbf573385c89cd13b68cdf691",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Create a new racer",
+                "operationId": "28206b5df6d19929c1b9a1383b10d386",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "racer_name": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "team_id": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/racers/{id}": {
+            "get": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Get a racer by ID",
+                "operationId": "c88dd477dde42fa6d9aa82ca47e1f209",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Racer not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Update a racer",
+                "operationId": "eef2c4c6466dfc5759efa7e54ccf4095",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "racer_name": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "team_id": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "updated_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "404": {
+                        "description": "Racer not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Delete a racer",
+                "operationId": "536b4d9db05d6a007b78004ea9dafbd3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Racer not found"
+                    }
+                }
+            }
+        },
+        "/api/racers/team/{team_id}": {
+            "get": {
+                "tags": [
+                    "Racers"
+                ],
+                "summary": "Get racers by team ID",
+                "operationId": "a9c93196a0dfdd7010ab08ac49eccc6b",
+                "parameters": [
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID to filter racers by",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of racers in the team",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Racer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No racers found for the team"
                     }
                 }
             }
@@ -686,6 +878,10 @@
         {
             "name": "Cards",
             "description": "Cards"
+        },
+        {
+            "name": "Racers",
+            "description": "Racers"
         },
         {
             "name": "Users",
