@@ -2,97 +2,142 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
-        $users = User::latest()->paginate(10);
-        return view('users.index', compact('users'));
+        $this->userService = $userService;
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/users",
+     *     summary="Create a new user",
+     *     tags={"Users"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name", "email", "password"},
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
+     *             @OA\Property(property="password", type="string", example="securepassword"),
+     *             @OA\Property(property="phone_number", type="string", example="1234567890"),
+     *             @OA\Property(property="roles", type="string", example="admin"),
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="User created successfully"),
+     *     @OA\Response(response=400, description="Bad Request")
+     * )
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'phone_number' => 'nullable|string|max:20',
+            'roles' => 'nullable|string|max:50',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'username' => 'default',
-            'roles' => 'default',
-        ]);
-
-        return redirect()
-            ->route('user.index')
-            ->with('message', 'New user created successfully');
-    }
-
-    public function show(User $user)
-    {
-        //
+        $user = $this->userService->createUser($data);
+        return response()->json($user, 201);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     summary="Get user by ID",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response=200, description="User retrieved successfully"),
+     *     @OA\Response(response=404, description="User not found")
+     * )
      */
-    public function edit(User $user)
+    public function show($id)
     {
-        return view('users.edit', compact('user'));
-    }
+        $user = $this->userService->getUserById($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
-        ]);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        if (! empty($request->get('password'))) {
-            $user->password = Hash::make($request->password);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
         }
-        $user->save();
 
-        return redirect()
-            ->route('user.index')
-            ->with('message', 'User updated successfully');
+        return response()->json($user);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Put(
+     *     path="/api/users/{id}",
+     *     summary="Update a user",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="phone_number", type="string"),
+     *             @OA\Property(property="roles", type="string"),
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="User updated successfully"),
+     *     @OA\Response(response=404, description="User not found")
+     * )
      */
-    public function destroy(User $user)
+    public function update(Request $request, $id)
     {
-        $user->delete();
-        return redirect()
-            ->route('user.index')
-            ->with('message', 'User deleted successfully');
+        $user = $this->userService->getUserById($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+
+        $data = $request->all();
+        $this->userService->updateUser($user, $data);
+
+        return response()->json(['message' => 'User updated successfully']);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/users/{id}",
+     *     summary="Delete a user",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response=200, description="User deleted successfully"),
+     *     @OA\Response(response=404, description="User not found")
+     * )
+     */
+    public function destroy($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $this->userService->deleteUser($user);
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }

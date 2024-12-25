@@ -8,10 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('user', UserController::class);
-
 Route::get('/swagger', function () {
     return view('swagger-ui');
 });
 
-Route::resource('tournaments', TournamentController::class);
+//Route::resource('tournaments', TournamentController::class);
+//Route::resource('users', UserController::class);

@@ -65,7 +65,7 @@ class TournamentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/tournaments",
+     *     path="/api/tournaments",
      *     summary="Get all tournaments",
      *     tags={"Tournaments"},
      *     @OA\Response(
@@ -82,7 +82,7 @@ class TournamentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/tournaments/{id}",
+     *     path="/api/tournaments/{id}",
      *     summary="Get tournament by ID",
      *     tags={"Tournaments"},
      *     @OA\Parameter(
@@ -114,7 +114,7 @@ class TournamentController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/tournaments",
+     *     path="/api/tournaments",
      *     summary="Create a new tournament",
      *     tags={"Tournaments"},
      *     @OA\RequestBody(
@@ -156,7 +156,7 @@ class TournamentController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/tournaments/{id}",
+     *     path="/api/tournaments/{id}",
      *     summary="Update a tournament",
      *     tags={"Tournaments"},
      *     @OA\Parameter(
@@ -213,7 +213,7 @@ class TournamentController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/tournaments/{id}",
+     *     path="/api/tournaments/{id}",
      *     summary="Delete a tournament",
      *     tags={"Tournaments"},
      *     @OA\Parameter(
