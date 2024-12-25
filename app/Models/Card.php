@@ -19,6 +19,7 @@ class Card extends Model
         'card_code',
         'racer_id',
         'coupon',
+        'status',
         'created_by',
         'updated_by',
     ];

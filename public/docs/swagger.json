@@ -6,6 +6,205 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/cards": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Get all cards",
+                "operationId": "0cf776c75245f5f70e78d1981e3398c2",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Create a new card",
+                "operationId": "6a1db83adb51fba2ac318a78bc2a4fde",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "card_code": {
+                                        "type": "string"
+                                    },
+                                    "racer_id": {
+                                        "type": "string"
+                                    },
+                                    "coupon": {
+                                        "type": "integer"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/cards/{id}": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Get a card by ID",
+                "operationId": "bd308067275d232e63f1b561207c465c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Update a card",
+                "operationId": "b3c8304bb7aa7bd6ab93c12179f9cec1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "card_code": {
+                                        "type": "string"
+                                    },
+                                    "racer_id": {
+                                        "type": "string"
+                                    },
+                                    "coupon": {
+                                        "type": "integer"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "updated_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Invalid JSON Schema"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Delete a card",
+                "operationId": "11c178be9e92d6cae99961ae40786f25",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/cards/code/{card_code}": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Get a card by card code",
+                "operationId": "de15d17c174b7227d3bfcde60437392d",
+                "parameters": [
+                    {
+                        "name": "card_code",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/cards/racer/{racer_id}": {
+            "get": {
+                "tags": [
+                    "Cards"
+                ],
+                "summary": "Get cards by racer ID",
+                "operationId": "a2f44605d4b974e3328a8a00a307afeb",
+                "parameters": [
+                    {
+                        "name": "racer_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/api/tournaments": {
             "get": {
                 "tags": [
@@ -483,6 +682,10 @@
         {
             "name": "Tournaments",
             "description": "Operations about tournaments"
+        },
+        {
+            "name": "Cards",
+            "description": "Cards"
         },
         {
             "name": "Users",
