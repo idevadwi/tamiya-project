@@ -6,6 +6,69 @@ use App\Services\RacerService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+
+/**
+ * @OA\Schema(
+ *     schema="Racer",
+ *     type="object",
+ *     title="Racer",
+ *     description="A racer participating in tournaments",
+ *     required={"user_id", "racer_name", "team_id"},
+ *     @OA\Property(
+ *         property="id",
+ *         type="string",
+ *         format="uuid",
+ *         description="The unique identifier of the racer"
+ *     ),
+ *     @OA\Property(
+ *         property="user_id",
+ *         type="string",
+ *         format="uuid",
+ *         description="The unique identifier of the user associated with the racer"
+ *     ),
+ *     @OA\Property(
+ *         property="racer_name",
+ *         type="string",
+ *         description="The name of the racer"
+ *     ),
+ *     @OA\Property(
+ *         property="image",
+ *         type="string",
+ *         format="uri",
+ *         description="The URL of the racer's image"
+ *     ),
+ *     @OA\Property(
+ *         property="team_id",
+ *         type="string",
+ *         format="uuid",
+ *         description="The unique identifier of the team the racer belongs to"
+ *     ),
+ *     @OA\Property(
+ *         property="created_by",
+ *         type="string",
+ *         nullable=true,
+ *         description="The identifier of the user who created this record"
+ *     ),
+ *     @OA\Property(
+ *         property="updated_by",
+ *         type="string",
+ *         nullable=true,
+ *         description="The identifier of the user who last updated this record"
+ *     ),
+ *     @OA\Property(
+ *         property="created_at",
+ *         type="string",
+ *         format="date-time",
+ *         description="The timestamp when the racer was created"
+ *     ),
+ *     @OA\Property(
+ *         property="updated_at",
+ *         type="string",
+ *         format="date-time",
+ *         description="The timestamp when the racer was last updated"
+ *     )
+ * )
+ */
 class RacerController extends Controller
 {
     protected RacerService $racerService;

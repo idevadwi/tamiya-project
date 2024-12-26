@@ -714,6 +714,177 @@
                 }
             }
         },
+        "/api/tournaments/{tournament_id}/participants": {
+            "get": {
+                "tags": [
+                    "Tournament Participants"
+                ],
+                "summary": "Get all participants for a specific tournament",
+                "operationId": "1a7a6d27ee6aeaf378d776b2b22f4694",
+                "parameters": [
+                    {
+                        "name": "tournament_id",
+                        "in": "path",
+                        "description": "ID of the tournament",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of participants for the tournament",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Racer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No participants found for the tournament"
+                    }
+                }
+            }
+        },
+        "/api/participants": {
+            "post": {
+                "tags": [
+                    "Tournament Participants"
+                ],
+                "summary": "Create a new tournament participant",
+                "operationId": "198b8b9c35a372b05911b6f681c09a4a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "tournament_id": {
+                                        "type": "string"
+                                    },
+                                    "racer_id": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/participants/{id}": {
+            "get": {
+                "tags": [
+                    "Tournament Participants"
+                ],
+                "summary": "Get a tournament participant by ID",
+                "operationId": "b8f7e763e770a32e55675713dfda4b13",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Participant not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tournament Participants"
+                ],
+                "summary": "Update a tournament participant",
+                "operationId": "23264a1783b2e286dded2cc781e5640c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "tournament_id": {
+                                        "type": "string"
+                                    },
+                                    "racer_id": {
+                                        "type": "string"
+                                    },
+                                    "updated_by": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "404": {
+                        "description": "Participant not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tournament Participants"
+                ],
+                "summary": "Delete a tournament participant",
+                "operationId": "42e02e7e7e9d31df8fbda82a76f3f6c3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Participant not found"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "post": {
                 "tags": [
@@ -874,6 +1045,62 @@
     },
     "components": {
         "schemas": {
+            "Racer": {
+                "title": "Racer",
+                "description": "A racer participating in tournaments",
+                "required": [
+                    "user_id",
+                    "racer_name",
+                    "team_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "The unique identifier of the racer",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "user_id": {
+                        "description": "The unique identifier of the user associated with the racer",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "racer_name": {
+                        "description": "The name of the racer",
+                        "type": "string"
+                    },
+                    "image": {
+                        "description": "The URL of the racer's image",
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "team_id": {
+                        "description": "The unique identifier of the team the racer belongs to",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "created_by": {
+                        "description": "The identifier of the user who created this record",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updated_by": {
+                        "description": "The identifier of the user who last updated this record",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "The timestamp when the racer was created",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "The timestamp when the racer was last updated",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "TournamentRequest": {
                 "required": [
                     "tournament_name",
@@ -1028,6 +1255,10 @@
         {
             "name": "Teams",
             "description": "Teams"
+        },
+        {
+            "name": "Tournament Participants",
+            "description": "Tournament Participants"
         },
         {
             "name": "Users",

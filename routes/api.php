@@ -3,6 +3,7 @@
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\RacerController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TournamentParticipantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TournamentController;
@@ -30,3 +31,7 @@ Route::get('racers/team/{team_id}', [RacerController::class, 'getByTeamId']);
 
 //teams
 Route::resource('teams', TeamController::class);
+
+//tournament participants
+Route::resource('participants', TournamentParticipantController::class);
+Route::get('tournaments/{tournament_id}/participants', [TournamentParticipantController::class, 'getParticipantsByTournamentId']);
